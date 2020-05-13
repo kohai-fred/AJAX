@@ -1,0 +1,59 @@
+*********************************************************
+                    Introduction à AJAX
+*********************************************************
+
+AJAX : vient de l'anglais Asynchronous JavaScript And XML.
+
+L'AJAx n'est pas un langage, c'est  une combinaison de JavaScript côté client et de PHP/SQL côté serveur, accompagnés de XML, JSON, HTML ou texte brut pour transporter les données entre les deux.
+
+
+
+---------------------------
+A quoi ça sert ?
+---------------------------
+
+L'AJAX permet d'échanger des données entre Client et Serveur pour changer le contenu d'une partie d'une page web SANS recharger toute la page.
+
+Exemple : fil d'actualités de Facebook
+
+
+
+---------------------------
+Avantages - Inconvénients
+---------------------------
++
+- améliore l'ergonomie de la page : l'utilisateur sait immédiatement où trouver les nouvelles informations dans le bloc mis à jour. Gain de temps de chargement de la page.
+
+-
+- accessibilité et référencement diminués car le contenue est mis à jour de façon différé, et les lecteurs d'écran ou les robots des moteurs de recherche lisent mal ces contenus (malgré les améliorations récentes).
+
+
+---------------------------
+Comment ça marche ?
+---------------------------
+
+Suite à un événement produit dans le navigateur (exemple 1 clic), un script JavaScript envoie une requête HTTPen GET ou en POST vers le serveur du site, en utilisant l'objet XMLHttpRequest.
+
+XMLHttpRequest est un objet JavaScript qui a été créé pour envoyer des requêtes Http au serveur web. En dépit de son nom, il y a d'autre usages que le XML : nous utilisons de plus en plus souvent le format JSON pour transporter les données.
+
+Le serveur réceptionne la requête, traite la demande et envoie la réponse au Client. le Client réceptionne la réponse et met à jour le bloc concerné par les informations envoyées grâce au JavaScript.
+
+Le terme Asynchronous dans AJAX signifie que les requêtes JavaScript vers le serveur sont asynchrones : le JavaScript n'attend pas la réponse du serveur, mais continue son exécution. Une fonction spécifique se déclenche quand la réponse parvient au client.
+
+
+---------------------------
+XML et JSON
+---------------------------
+
+XML et JSON sont des formats qui permettent de véhiculer des données, dans notre cas entre client et serveur.
+
+XML = eXtensible Markup Language, permet de structurer des données dans des balises personnalisées.
+
+JSON = JavaScript Object Notation : syntaxe pour stocker et échanger des données inspirée de la notation objet du JavaScript. Exemple :
+            {
+                "prenom" : "John",
+                "nom" : "Doe",
+                "ville" : "Londres"
+            }
+
+Note : les paires de propriété/valeur sont obligatoirement entre guillemets.

@@ -1,0 +1,65 @@
+<!-- 
+Objectif : obtenir la météo (fictive) de Paris demandée au serveur puis affichée dans le navigateur sans recharger la page.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Météo</title>
+    <!-- CDN jQuery (pas la version slim qui ne contient pas AJAX)-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <h1>Météo du jour</h1>
+    <button>Obtenir la météo</button>
+    <p id="resultat"></p><!-- pour afficher le résultat envoyé par le serveur et traité par le script JS -->
+
+    <script>
+        $(function(){
+            $('button').click(function(){
+
+                // 2- fonction qui traite la réponse du serveur :
+                function reponse(responsePHP){  // le paramètre reponsePHP reçoit la réponse du serveur sour forme d'objet JS
+
+                    console.log(responsePHP);  // objet JS reçu avec les propirétés "meteo" et "temperature" correspondants aus indices du tableau $retour côté PHP.
+
+                    if(responsePHP.meteo && responsePHP.temperature){  // on test l'existence des propriétés dans l'objet reponsePHP
+                        $('#resultat').html(responsePHP.meteo + ' et la température est de : ' + responsePHP.temperature);  // et on remplit le HTML du <p> avec les informations contenues dans les 2 propriétés.
+
+                    }
+                }
+
+                // 1- envoie la requête vers le serveur en méthode GET aves la fonction $.get() (équivalent à : jQuery.get()) :
+                $.get('meteo.php', { ville : 'Paris'}, reponse, 'json').done(function(){
+                    console.log('Réponse reçue');
+                }).fail(function(){
+                    console.log('Une erreur est survenue');
+                });
+
+                // done() se déclenche quand la requête a été correctement exécutée et que la réponse est arrivée. Utile pour effacer un loader par exemple.
+                // fail() se déclenche quand une erreur est survenue lors de l'échange (exemple : erreur du type attendu)
+
+                /* 4 arguments à la fonction $.get() :
+
+                    - URL du fichier qui traite la requête côté serveur
+                    - les données envoyées sous forme d'objet JavaScript selon la syntaxe {
+                        prop1 : 'valeur1', propN : 'valeurN'
+                    }. Les propiétés de cet objet correspondent aux indices de $_GET côté PHP. On peut remplacer cet objet JS par un string selon la syntaxe 'ville=Paris'.
+                    - fonction qui est exécutée si la requête fonctionne et que l'on reçoit une réponse du serveur.
+                    - format attendu de la réponse du serveur : 'json', 'xml', 'text', 'html'
+
+                */
+
+            }); // Fin du click
+
+
+        }); // Fin du document Ready
+
+
+    </script>
+    
+</body>
+</html>
